@@ -94,7 +94,7 @@ elif drink_age == 60 or drink_age == 70:
 
 #파이썬 카지노
 #built in function과 python standard library 에서 import 해오기
-"""
+
 from random import randint
 
 user_choice = int(input("choose number : "))
@@ -107,7 +107,7 @@ elif user_choice > pc_choice:
 elif user_choice < pc_choice:
   print("you loose. pc choice is", pc_choice)
 
-#덩어리 주석을 남기려면 """
+#덩어리 주석을 남기려면 큰따옴표 3게
 
 #while 연습하기
 distance = 0
@@ -132,3 +132,18 @@ while playing:
     print("Higher!")
   elif pc_choice < user_choice:
     print("Lower!")
+
+
+#function과 method
+#function은 그냥 함수 method는 데이터 + 함수
+name = "nico"
+print(name.upper())
+print(name.capitalize())
+
+#list 연습하기
+day_of_week = ["Mon","Tue","Wed","Thu","Fri"]
+print(day_of_week.count("Wed"))
+day_of_week.reverse()
+print(day_of_week)
+day_of_week.clear()
+print(day_of_week)
