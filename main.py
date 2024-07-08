@@ -17,12 +17,28 @@ jobs = soup.find("section", class_="jobs").find_all("li")[1:-1]
 
 all_jobs = []
 
-#list unpack 으로 값을 받아오는 과정에서 region이 없는 값들이 있어서 ValueError가 발생 -> find_next를 이용해서 job의 하위메뉴에서 find하고 
+#list unpack 으로 값을 받아오는 과정에서 region이 없는 값들이 있어서 ValueError가 발생 -> find_next()를 이용해서 job의 하위태그에서 그 중 첫번째 값을 받아옴.
+#company.find_next()하면 company에 담겨있는 태그 기준으로 하위 태그에서 find에서 첫번째 값 반환
+#position = job.find_next("span", class_="company")
+#company = job.find_next("span", class_="company")
+#했을 경우 position과 company에는 같은 값이 저장됨. li에서 class가 company인 값.
+
+#문제점
+#region이 없으면 그 밑 태그중에서 class가 region company인 찾고 그 중 첫번째 값을 가져오게 되고 결국은 그 다음 list의 region을 가져오게 됨 
+
 for job in jobs:
   title = job.find("span", class_="title").text
   company = job.find_next("span", class_="company")
   position = company.find_next("span", class_="company")
-  region = position.find_next("span", class_="company")
+
+  try: 
+    region = position.find_next("span", class_="region company")
+    region_text = region.text
+  except AttributeError:
+    region_text = None
+  
+
+  
   anchor = company.find_parent("a")
   url = anchor["href"] if anchor else "parent anchor is not found"
   #company, position, region = job.find_all("span",class_="company")
@@ -39,7 +55,7 @@ for job in jobs:
     "title" : title,
     "company" : company.text,
     "positon" : position.text,
-    "region" : region.text,
+    "region" : region_text,
     "url" : url
   }
   all_jobs.append(job_data)
